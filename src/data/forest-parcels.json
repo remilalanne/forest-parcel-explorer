@@ -1,0 +1,146 @@
+{
+	"type": "FeatureCollection",
+	"features": [
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "parcel-1",
+				"name": "Biscarrosse Nord-Ouest",
+				"forestType": "Conifer",
+				"health": "Good",
+				"carbonScore": 86,
+				"areaHa": 24.6
+			},
+			"geometry": {
+				"type": "Polygon",
+				"coordinates": [
+					[
+						[-1.184, 44.452],
+						[-1.177, 44.455],
+						[-1.169, 44.454],
+						[-1.164, 44.449],
+						[-1.167, 44.443],
+						[-1.174, 44.433],
+						[-1.181, 44.437],
+						[-1.185, 44.444],
+						[-1.184, 44.452]
+					]
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "parcel-2",
+				"name": "Biscarrosse Nord-Est",
+				"forestType": "Mixed",
+				"health": "Average",
+				"carbonScore": 67,
+				"areaHa": 18.9
+			},
+			"geometry": {
+				"type": "Polygon",
+				"coordinates": [
+					[
+						[-1.167, 44.443],
+						[-1.16, 44.444],
+						[-1.152, 44.441],
+						[-1.146, 44.436],
+						[-1.148, 44.431],
+						[-1.156, 44.43],
+						[-1.164, 44.431],
+						[-1.171, 44.427],
+						[-1.174, 44.433],
+						[-1.167, 44.443]
+					]
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "parcel-3",
+				"name": "Massif Central Ouest",
+				"forestType": "Conifer",
+				"health": "Good",
+				"carbonScore": 79,
+				"areaHa": 31.4
+			},
+			"geometry": {
+				"type": "Polygon",
+				"coordinates": [
+					[
+						[-1.189, 44.438],
+						[-1.181, 44.437],
+						[-1.174, 44.433],
+						[-1.171, 44.427],
+						[-1.173, 44.422],
+						[-1.179, 44.421],
+						[-1.186, 44.423],
+						[-1.191, 44.428],
+						[-1.192, 44.434],
+						[-1.189, 44.438]
+					]
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "parcel-4",
+				"name": "Massif Central Est",
+				"forestType": "Deciduous",
+				"health": "Needs Attention",
+				"carbonScore": 49,
+				"areaHa": 15.7
+			},
+			"geometry": {
+				"type": "Polygon",
+				"coordinates": [
+					[
+						[-1.171, 44.427],
+						[-1.173, 44.422],
+						[-1.169, 44.417],
+						[-1.162, 44.414],
+						[-1.155, 44.413],
+						[-1.15, 44.417],
+						[-1.151, 44.423],
+						[-1.157, 44.428],
+						[-1.164, 44.431],
+						[-1.171, 44.427]
+					]
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "parcel-5",
+				"name": "Lisiere Sud Biscarrosse",
+				"forestType": "Mixed",
+				"health": "Average",
+				"carbonScore": 58,
+				"areaHa": 20.3
+			},
+			"geometry": {
+				"type": "Polygon",
+				"coordinates": [
+					[
+						[-1.186, 44.423],
+						[-1.179, 44.421],
+						[-1.173, 44.422],
+						[-1.175, 44.417],
+						[-1.168, 44.412],
+						[-1.165, 44.406],
+						[-1.171, 44.4],
+						[-1.178, 44.399],
+						[-1.184, 44.403],
+						[-1.187, 44.409],
+						[-1.188, 44.416],
+						[-1.186, 44.423]
+					]
+				]
+			}
+		}
+	]
+}
