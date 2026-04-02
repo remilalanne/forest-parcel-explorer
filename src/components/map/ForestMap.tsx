@@ -10,12 +10,14 @@ type ForestMapProps = {
 	selectedParcelId: string | null;
 	onSelectParcel: (feature: ParcelFeature) => void;
 	filter: string;
+	isAutoFit: boolean;
 };
 
 export function ForestMap({
 	selectedParcelId,
 	onSelectParcel,
 	filter,
+	isAutoFit,
 }: ForestMapProps) {
 	return (
 		<div className="relative h-150 w-full rounded-xl overflow-hidden">
@@ -29,6 +31,7 @@ export function ForestMap({
 					selectedParcelId={selectedParcelId}
 					onSelectParcel={onSelectParcel}
 					filter={filter}
+					isAutoFit={isAutoFit}
 				/>
 			</MapContainer>
 

@@ -9,12 +9,13 @@ import type {
 } from '@/types/geo';
 import type { PathOptions } from 'leaflet';
 import L from 'leaflet';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 type GeoJsonLayerProps = {
 	selectedParcelId: string | null;
 	onSelectParcel: (feature: ParcelFeature) => void;
 	filter: string;
+	isAutoFit: boolean;
 };
 
 const data = parcelData as ParcelFeatureCollection;
@@ -53,7 +54,14 @@ export function GeoJsonLayer({
 	selectedParcelId,
 	onSelectParcel,
 	filter,
+	isAutoFit,
 }: GeoJsonLayerProps) {
+	const isAutoFitRef = useRef(isAutoFit);
+
+	useEffect(() => {
+		isAutoFitRef.current = isAutoFit;
+	}, [isAutoFit]);
+
 	const filteredData = useMemo<ParcelFeatureCollection>(() => {
 		if (filter === 'All') {
 			return data;
@@ -79,7 +87,7 @@ export function GeoJsonLayer({
 
 						const layerBounds = (layer as L.GeoJSON).getBounds();
 						const map = (layer as L.Layer & { _map: L.Map })._map;
-						if (map && layerBounds) {
+						if (map && layerBounds && isAutoFitRef.current) {
 							map.fitBounds(layerBounds, { padding: [20, 20] });
 						}
 					},

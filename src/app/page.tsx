@@ -11,10 +11,15 @@ export default function HomePage() {
 		null,
 	);
 	const [filter, setFilter] = useState<FilterForestType>('All');
+	const [isAutoFit, setIsAutoFit] = useState<boolean>(true);
 
 	const handleFilterChange = (type: FilterForestType) => {
 		setFilter(type);
 		setSelectedParcel(null);
+	};
+
+	const handleChangeAutoFit = () => {
+		setIsAutoFit((prev) => !prev);
 	};
 
 	return (
@@ -27,13 +32,21 @@ export default function HomePage() {
 				</p>
 			</header>
 
-			<Filters handleFilterChange={handleFilterChange} filter={filter} />
+			<Filters
+				{...{
+					filter,
+					handleFilterChange,
+					isAutoFit,
+					handleChangeAutoFit,
+				}}
+			/>
 
 			<div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
 				<ForestMapWrapper
 					selectedParcelId={selectedParcel?.properties.id ?? null}
 					onSelectParcel={setSelectedParcel}
 					filter={filter}
+					isAutoFit={isAutoFit}
 				/>
 				<SelectedParcelCard parcel={selectedParcel} />
 			</div>
