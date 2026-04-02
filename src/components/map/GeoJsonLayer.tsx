@@ -9,10 +9,12 @@ import type {
 } from '@/types/geo';
 import type { PathOptions } from 'leaflet';
 import L from 'leaflet';
+import { useMemo } from 'react';
 
 type GeoJsonLayerProps = {
 	selectedParcelId: string | null;
 	onSelectParcel: (feature: ParcelFeature) => void;
+	filter: string;
 };
 
 const data = parcelData as ParcelFeatureCollection;
@@ -50,15 +52,36 @@ function getStyle(
 export function GeoJsonLayer({
 	selectedParcelId,
 	onSelectParcel,
+	filter,
 }: GeoJsonLayerProps) {
+	const filteredData = useMemo<ParcelFeatureCollection>(() => {
+		if (filter === 'All') {
+			return data;
+		}
+
+		return {
+			...data,
+			features: data.features.filter(
+				(feature) => feature.properties.forestType === filter,
+			),
+		};
+	}, [filter]);
+
 	return (
 		<GeoJSON
-			data={data}
+			key={filter}
+			data={filteredData}
 			style={(feature) => getStyle(feature, selectedParcelId)}
 			onEachFeature={(feature, layer) => {
 				layer.on({
 					click: () => {
 						onSelectParcel(feature as ParcelFeature);
+
+						const layerBounds = (layer as L.GeoJSON).getBounds();
+						const map = (layer as L.Layer & { _map: L.Map })._map;
+						if (map && layerBounds) {
+							map.fitBounds(layerBounds, { padding: [20, 20] });
+						}
 					},
 					mouseover: () => {
 						const polygon = layer as L.Path;

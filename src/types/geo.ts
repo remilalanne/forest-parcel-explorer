@@ -1,7 +1,7 @@
 export type ParcelProperties = {
 	id: string;
 	name: string;
-	forestType: 'Conifer' | 'Mixed' | 'Deciduous';
+	forestType: ForestType;
 	health: 'Good' | 'Average' | 'Needs Attention';
 	carbonScore: number;
 	areaHa: number;
@@ -12,3 +12,6 @@ export type ParcelFeatureCollection = GeoJSON.FeatureCollection<
 	GeoJSON.Polygon,
 	ParcelProperties
 >;
+
+export type ForestType = 'Conifer' | 'Mixed' | 'Deciduous';
+export type FilterForestType = ForestType | 'All';
