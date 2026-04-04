@@ -4,6 +4,7 @@ import { GeoJSON } from 'react-leaflet';
 import parcelData from '@/data/forest-parcels.json';
 import type {
 	ForestType,
+	HealthType,
 	ParcelFeature,
 	ParcelFeatureCollection,
 	ParcelProperties,
@@ -17,6 +18,7 @@ type GeoJsonLayerProps = {
 	onSelectParcel: (feature: ParcelFeature) => void;
 	types: ForestType[];
 	isAutoFit: boolean;
+	health: HealthType[];
 };
 
 const data = parcelData as ParcelFeatureCollection;
@@ -56,6 +58,7 @@ export function GeoJsonLayer({
 	onSelectParcel,
 	types,
 	isAutoFit,
+	health,
 }: GeoJsonLayerProps) {
 	const isAutoFitRef = useRef(isAutoFit);
 
@@ -66,15 +69,19 @@ export function GeoJsonLayer({
 	const filteredData = useMemo<ParcelFeatureCollection>(() => {
 		return {
 			...data,
-			features: data.features.filter((feature) =>
-				types.includes(feature.properties.forestType),
+			features: data.features.filter(
+				(feature) =>
+					types.includes(feature.properties.forestType) &&
+					health.includes(feature.properties.health),
 			),
 		};
-	}, [types]);
+	}, [types, health]);
 
 	const geoJsonKey = useMemo(() => {
-		return [...types].sort().join('|');
-	}, [types]);
+		const typesKey = [...types].sort().join('|');
+		const healthKey = [...health].sort().join('|');
+		return `${typesKey}__${healthKey}`;
+	}, [types, health]);
 
 	return (
 		<GeoJSON

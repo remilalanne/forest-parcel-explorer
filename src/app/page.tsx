@@ -2,7 +2,13 @@
 
 import { useState } from 'react';
 import { SelectedParcelCard } from '@/components/map/SelectedParcelCard';
-import { ForestType, forestTypeList, type ParcelFeature } from '@/types/geo';
+import {
+	ForestType,
+	forestTypeList,
+	HealthType,
+	healthTypeList,
+	type ParcelFeature,
+} from '@/types/geo';
 import { ForestMapWrapper } from '@/components/map/MapWrapper';
 import { Filters } from '@/components/Filters';
 
@@ -11,6 +17,7 @@ export default function HomePage() {
 		null,
 	);
 	const [types, setTypes] = useState<ForestType[]>([...forestTypeList]);
+	const [health, setHealth] = useState<HealthType[]>([...healthTypeList]);
 	const [isAutoFit, setIsAutoFit] = useState<boolean>(true);
 
 	const handleTypesChange = (type: ForestType) => {
@@ -18,6 +25,15 @@ export default function HomePage() {
 			prev.includes(type)
 				? prev.filter((item) => item !== type)
 				: [...prev, type],
+		);
+		setSelectedParcel(null);
+	};
+
+	const handleHealthChange = (health: HealthType) => {
+		setHealth((prev) =>
+			prev.includes(health)
+				? prev.filter((item) => item !== health)
+				: [...prev, health],
 		);
 		setSelectedParcel(null);
 	};
@@ -42,6 +58,8 @@ export default function HomePage() {
 					handleTypesChange,
 					isAutoFit,
 					handleChangeAutoFit,
+					health,
+					handleHealthChange,
 				}}
 			/>
 
@@ -51,6 +69,7 @@ export default function HomePage() {
 					onSelectParcel={setSelectedParcel}
 					types={types}
 					isAutoFit={isAutoFit}
+					health={health}
 				/>
 				<SelectedParcelCard parcel={selectedParcel} />
 			</div>
