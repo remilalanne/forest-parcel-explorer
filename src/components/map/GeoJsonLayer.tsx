@@ -3,6 +3,7 @@
 import { GeoJSON } from 'react-leaflet';
 import parcelData from '@/data/forest-parcels.json';
 import type {
+	ForestType,
 	ParcelFeature,
 	ParcelFeatureCollection,
 	ParcelProperties,
@@ -14,7 +15,7 @@ import { useEffect, useMemo, useRef } from 'react';
 type GeoJsonLayerProps = {
 	selectedParcelId: string | null;
 	onSelectParcel: (feature: ParcelFeature) => void;
-	filter: string;
+	types: ForestType[];
 	isAutoFit: boolean;
 };
 
@@ -53,7 +54,7 @@ function getStyle(
 export function GeoJsonLayer({
 	selectedParcelId,
 	onSelectParcel,
-	filter,
+	types,
 	isAutoFit,
 }: GeoJsonLayerProps) {
 	const isAutoFitRef = useRef(isAutoFit);
@@ -63,21 +64,21 @@ export function GeoJsonLayer({
 	}, [isAutoFit]);
 
 	const filteredData = useMemo<ParcelFeatureCollection>(() => {
-		if (filter === 'All') {
-			return data;
-		}
-
 		return {
 			...data,
-			features: data.features.filter(
-				(feature) => feature.properties.forestType === filter,
+			features: data.features.filter((feature) =>
+				types.includes(feature.properties.forestType),
 			),
 		};
-	}, [filter]);
+	}, [types]);
+
+	const geoJsonKey = useMemo(() => {
+		return [...types].sort().join('|');
+	}, [types]);
 
 	return (
 		<GeoJSON
-			key={filter}
+			key={geoJsonKey}
 			data={filteredData}
 			style={(feature) => getStyle(feature, selectedParcelId)}
 			onEachFeature={(feature, layer) => {

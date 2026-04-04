@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { SelectedParcelCard } from '@/components/map/SelectedParcelCard';
-import type { FilterForestType, ParcelFeature } from '@/types/geo';
+import { ForestType, forestTypeList, type ParcelFeature } from '@/types/geo';
 import { ForestMapWrapper } from '@/components/map/MapWrapper';
 import { Filters } from '@/components/Filters';
 
@@ -10,11 +10,15 @@ export default function HomePage() {
 	const [selectedParcel, setSelectedParcel] = useState<ParcelFeature | null>(
 		null,
 	);
-	const [filter, setFilter] = useState<FilterForestType>('All');
+	const [types, setTypes] = useState<ForestType[]>([...forestTypeList]);
 	const [isAutoFit, setIsAutoFit] = useState<boolean>(true);
 
-	const handleFilterChange = (type: FilterForestType) => {
-		setFilter(type);
+	const handleTypesChange = (type: ForestType) => {
+		setTypes((prev) =>
+			prev.includes(type)
+				? prev.filter((item) => item !== type)
+				: [...prev, type],
+		);
 		setSelectedParcel(null);
 	};
 
@@ -34,8 +38,8 @@ export default function HomePage() {
 
 			<Filters
 				{...{
-					filter,
-					handleFilterChange,
+					types,
+					handleTypesChange,
 					isAutoFit,
 					handleChangeAutoFit,
 				}}
@@ -45,7 +49,7 @@ export default function HomePage() {
 				<ForestMapWrapper
 					selectedParcelId={selectedParcel?.properties.id ?? null}
 					onSelectParcel={setSelectedParcel}
-					filter={filter}
+					types={types}
 					isAutoFit={isAutoFit}
 				/>
 				<SelectedParcelCard parcel={selectedParcel} />

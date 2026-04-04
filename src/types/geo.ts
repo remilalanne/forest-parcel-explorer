@@ -2,7 +2,7 @@ export type ParcelProperties = {
 	id: string;
 	name: string;
 	forestType: ForestType;
-	health: 'Good' | 'Average' | 'Needs Attention';
+	health: HealthType;
 	carbonScore: number;
 	areaHa: number;
 };
@@ -13,5 +13,8 @@ export type ParcelFeatureCollection = GeoJSON.FeatureCollection<
 	ParcelProperties
 >;
 
-export type ForestType = 'Conifer' | 'Mixed' | 'Deciduous';
-export type FilterForestType = ForestType | 'All';
+export const forestTypeList = ['Conifer', 'Mixed', 'Deciduous'] as const;
+export type ForestType = (typeof forestTypeList)[number];
+
+export const healthTypeList = ['Good', 'Average', 'Needs Attention'] as const;
+export type HealthType = (typeof healthTypeList)[number];

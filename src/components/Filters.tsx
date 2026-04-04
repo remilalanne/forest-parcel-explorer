@@ -1,22 +1,15 @@
-import { FilterForestType } from '@/types/geo';
+import { ForestType, forestTypeList } from '@/types/geo';
 
 type FiltersProps = {
-	handleFilterChange: (type: FilterForestType) => void;
-	filter: FilterForestType;
+	handleTypesChange: (type: ForestType) => void;
+	types: ForestType[];
 	isAutoFit: boolean;
 	handleChangeAutoFit: () => void;
 };
 
-const forestTypeList: FilterForestType[] = [
-	'All',
-	'Conifer',
-	'Mixed',
-	'Deciduous',
-] as const;
-
 export function Filters({
-	handleFilterChange,
-	filter,
+	handleTypesChange,
+	types,
 	isAutoFit,
 	handleChangeAutoFit,
 }: FiltersProps) {
@@ -26,9 +19,11 @@ export function Filters({
 				{forestTypeList.map((type) => (
 					<button
 						key={type}
-						onClick={() => handleFilterChange(type)}
+						onClick={() => handleTypesChange(type)}
 						className={`rounded px-3 py-1 text-sm border ${
-							filter === type ? 'bg-black text-white' : 'bg-white'
+							types.includes(type)
+								? 'bg-black text-white'
+								: 'bg-white'
 						} cursor-pointer`}
 					>
 						{type}

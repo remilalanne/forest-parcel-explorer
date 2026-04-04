@@ -1,7 +1,7 @@
 'use client';
 
 import { MapContainer, TileLayer } from 'react-leaflet';
-import type { ParcelFeature } from '@/types/geo';
+import type { ForestType, ParcelFeature } from '@/types/geo';
 import { GeoJsonLayer } from './GeoJsonLayer';
 import 'leaflet/dist/leaflet.css';
 import { MapLegend } from './MapLegend';
@@ -9,14 +9,14 @@ import { MapLegend } from './MapLegend';
 type ForestMapProps = {
 	selectedParcelId: string | null;
 	onSelectParcel: (feature: ParcelFeature) => void;
-	filter: string;
+	types: ForestType[];
 	isAutoFit: boolean;
 };
 
 export function ForestMap({
 	selectedParcelId,
 	onSelectParcel,
-	filter,
+	types,
 	isAutoFit,
 }: ForestMapProps) {
 	return (
@@ -30,7 +30,7 @@ export function ForestMap({
 				<GeoJsonLayer
 					selectedParcelId={selectedParcelId}
 					onSelectParcel={onSelectParcel}
-					filter={filter}
+					types={types}
 					isAutoFit={isAutoFit}
 				/>
 			</MapContainer>
