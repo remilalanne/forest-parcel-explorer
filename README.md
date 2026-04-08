@@ -19,6 +19,18 @@ This project focuses on:
 
 ---
 
+## 📸 Screenshots
+
+### Main Map View
+
+![Main map view](./public/screenshots/main-map.png)
+
+### Filtered Parcels
+
+![Filtered parcels](./public/screenshots/filtered-parcels.png)
+
+---
+
 ## 🧩 Features (V1)
 
 - Interactive map using Leaflet
@@ -38,6 +50,7 @@ This project focuses on:
 - **React Leaflet / Leaflet**
 - **Tailwind CSS**
 - **GeoJSON**
+- **Tanstack/Query**
 
 ---
 
@@ -48,8 +61,10 @@ src/
 ├── app/                 # Next.js app router pages and global styles
 ├── components/          # Reusable UI components
 │   └── map/             # Map-related components (Leaflet)
-├── data/                # Local GeoJSON dataset
+├── hooks/               # Shared React hooks (data fetching, etc.)
 ├── types/               # TypeScript types for geospatial data
+public/
+└── forest-parcels.json  # Local GeoJSON dataset served at runtime
 ```
 
 ---
@@ -88,13 +103,3 @@ npm run dev
 ```
 
 Open http://localhost:3000
-
----
-
-## 🔮 Next Steps
-
-- Add filtering (by forest type, health, etc.)
-- Add map legend
-- Fit map bounds to selected parcel
-- Improve accessibility and keyboard navigation
-- Replace mock data with real geospatial datasets
