@@ -1,7 +1,6 @@
 'use client';
 
 import { GeoJSON } from 'react-leaflet';
-import parcelData from '@/data/forest-parcels.json';
 import type {
 	ForestType,
 	HealthType,
@@ -19,9 +18,8 @@ type GeoJsonLayerProps = {
 	types: ForestType[];
 	isAutoFit: boolean;
 	health: HealthType[];
+	data: ParcelFeatureCollection;
 };
-
-const data = parcelData as ParcelFeatureCollection;
 
 function getParcelColor(carbonScore: number): string {
 	if (carbonScore >= 75) return '#166534';
@@ -59,6 +57,7 @@ export function GeoJsonLayer({
 	types,
 	isAutoFit,
 	health,
+	data,
 }: GeoJsonLayerProps) {
 	const isAutoFitRef = useRef(isAutoFit);
 
@@ -75,7 +74,7 @@ export function GeoJsonLayer({
 					health.includes(feature.properties.health),
 			),
 		};
-	}, [types, health]);
+	}, [data, types, health]);
 
 	const geoJsonKey = useMemo(() => {
 		const typesKey = [...types].sort().join('|');
